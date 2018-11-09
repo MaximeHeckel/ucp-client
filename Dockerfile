@@ -17,6 +17,9 @@ RUN apk add --update ca-certificates \
     && chmod +x /usr/local/bin/kubectl \
     && rm /var/cache/apk/* 
 
+COPY init.sh /
+RUN ["chmod", "+x", "/init.sh"]
+
 CMD curl -L -k -H "Authorization: Bearer ${UCP_SESSION_TOKEN}" https://${UCP_HOST}/api/clientbundle/${UCP_USER} -o bundle.zip \
     && unzip bundle.zip \
     && sleep 24h
